@@ -1,0 +1,113 @@
+<xsd:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prov="http://www.provenir.com/schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="ProvenirType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" name="Messages" type="MessagesType" />
+      <xsd:element maxOccurs="1" name="Rules" type="RulesType" />
+      <xsd:element maxOccurs="1" name="Journals" type="JournalsType" />
+      <xsd:element maxOccurs="1" name="Traces" type="TracesType" />
+      <xsd:element maxOccurs="1" name="Audits" type="AuditsType" />
+    </xsd:sequence>
+    <xsd:attribute name="ID" type="xsd:decimal" />
+    <xsd:attribute name="sessionID" type="xsd:string" />
+    <xsd:attribute name="UserID" type="xsd:string" />
+    <xsd:attribute name="stack" type="xsd:string" />
+    <xsd:attribute name="date" type="xsd:date" />
+  </xsd:complexType>
+  <xsd:complexType name="MessagesType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Message">
+        <xsd:complexType>
+          <xsd:attribute name="Timestamp" type="xsd:date" />
+          <xsd:attribute name="Source" type="xsd:string" />
+          <xsd:attribute name="Severity">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="CRITICAL" />
+                <xsd:enumeration value="WARNING" />
+                <xsd:enumeration value="INFORMATION" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+          <xsd:attribute name="Number" type="xsd:string" />
+          <xsd:attribute name="HelpURL" type="xsd:string" />
+          <xsd:attribute name="HelpContextID" type="xsd:string" />
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RulesType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Rule">
+        <xsd:complexType>
+          <xsd:attribute name="guid" type="xsd:string" />
+          <xsd:attribute name="ID" type="xsd:string" />
+          <xsd:attribute name="FolderPath" type="xsd:string" />
+          <xsd:attribute name="Description" type="xsd:string" />
+          <xsd:attribute name="Timestamp" type="xsd:string" />
+          <xsd:attribute name="Severity" type="xsd:string" />
+          <xsd:attribute name="Override" type="xsd:boolean" />
+          <xsd:attribute name="AllowOverride" type="xsd:boolean" />
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="JournalsType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Journal">
+        <xsd:complexType>
+          <xsd:attribute name="Type" type="xsd:string" />
+          <xsd:attribute name="ID" type="xsd:string" />
+          <xsd:attribute name="Timestamp" type="xsd:string" />
+          <xsd:attribute name="Status" type="xsd:string" />
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TracesType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Trace">
+        <xsd:complexType>
+          <xsd:attribute name="TimeStarted" type="xsd:string" />
+          <xsd:attribute name="Engine" type="xsd:string" />
+          <xsd:attribute name="NodeType" type="xsd:string" />
+          <xsd:attribute name="NodeID" type="xsd:string" />
+          <xsd:attribute name="EngineID" type="xsd:string" />
+          <xsd:attribute name="Comment" type="xsd:string" />
+          <xsd:attribute name="TimeDone" type="xsd:string" />
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AuditsType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Audit">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="From" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="To" />
+          </xsd:sequence>
+          <xsd:attribute name="Timestamp" type="xsd:string" />
+          <xsd:attribute name="XPATH" type="xsd:string" />
+          <xsd:attribute name="UserID" type="xsd:string" />
+          <xsd:attribute name="Source" type="xsd:string" />
+          <xsd:attribute name="Action">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="A" />
+                <xsd:enumeration value="D" />
+                <xsd:enumeration value="U" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Data">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Provenir" type="ProvenirType" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
